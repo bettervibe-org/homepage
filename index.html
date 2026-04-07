@@ -549,6 +549,26 @@
     border-radius: var(--radius);
     font-size: 12px; color: var(--text-secondary); font-weight: 400;
   }
+  .sponsor-grid {
+    display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .sponsor-link {
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px 28px;
+    background: #f5f0e6; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    min-height: 80px; min-width: 160px;
+  }
+  .sponsor-link:hover {
+    border-color: var(--amber-dim); transform: translateY(-2px);
+  }
+  .sponsor-link img {
+    max-height: 40px; max-width: 160px; width: auto; height: auto;
+    object-fit: contain;
+  }
 
   .quote-card {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -1165,7 +1185,31 @@
 </section>
 
 <!-- ───────────────────────────────────────────
-     10 · FINAL CTA
+     10 · SPONSORS
+──────────────────────────────────────────── -->
+<section id="sponsors">
+  <div class="max-w">
+    <div class="section-label">10 — Sponsors</div>
+    <h2 class="section-title">Backed by builders.</h2>
+    <p class="section-desc" style="margin-bottom: 32px;">
+      Companies that share our belief in shipping AI-assisted code that holds up.
+    </p>
+    <div class="sponsor-grid">
+      <a href="https://fluensy.app/" class="sponsor-link" target="_blank" rel="noopener" aria-label="Fluensy">
+        <img src="public/fluensy-logotext.svg" alt="Fluensy">
+      </a>
+      <a href="https://lithus.eu/" class="sponsor-link" target="_blank" rel="noopener" aria-label="Lithus">
+        <img src="public/lithus-logo.svg" alt="Lithus">
+      </a>
+      <a href="https://usemarbles.com/" class="sponsor-link" target="_blank" rel="noopener" aria-label="Marbles">
+        <img src="public/marbles-logo.svg" alt="Marbles">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────────────────────
+     11 · FINAL CTA
 ──────────────────────────────────────────── -->
 <section id="final-cta">
   <div class="max-w" style="position: relative;">
