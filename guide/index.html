@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vibe Coder's Guide — bettervibe</title>
 <meta name="description" content="33 pages. Three authors. Two years of shipping production code with Claude Code, Cursor, and Codex distilled into ten practices we wish someone had handed us in 2024.">
-<link rel="canonical" href="https://bettervibe.org/booklet/">
+<link rel="canonical" href="https://bettervibe.org/guide/">
 <meta property="og:title" content="Vibe Coder's Guide to Agentic Engineering">
 <meta property="og:description" content="33 pages. Three authors. Two years of shipping production code with Claude Code, Cursor, and Codex distilled into ten practices.">
 <meta property="og:image" content="/public/og-image.png">
@@ -208,7 +208,7 @@
     }
 
     /* ── HERO GRID ── */
-    .booklet-hero {
+    .guide-hero {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 180px;
         gap: 32px;
@@ -216,7 +216,7 @@
         margin-bottom: 0;
     }
 
-    .booklet-headline {
+    .guide-headline {
         font-size: clamp(44px, 6vw, 72px);
         font-weight: 700;
         line-height: 0.95;
@@ -224,9 +224,9 @@
         color: var(--text-primary);
         margin-bottom: 20px;
     }
-    .booklet-headline .dot { color: var(--amber); }
+    .guide-headline .dot { color: var(--amber); }
 
-    .booklet-subhead {
+    .guide-subhead {
         font-size: clamp(15px, 1.8vw, 20px);
         color: var(--amber);
         line-height: 1.4;
@@ -234,7 +234,7 @@
         font-weight: 300;
     }
 
-    .booklet-desc {
+    .guide-desc {
         font-size: 13px;
         color: var(--text-secondary);
         font-weight: 300;
@@ -242,7 +242,7 @@
         margin-bottom: 32px;
     }
 
-    .booklet-cta {
+    .guide-cta {
         display: flex;
         align-items: center;
         gap: 20px;
@@ -364,7 +364,7 @@
     }
 
     /* ── COVER THUMBNAIL ── */
-    .booklet-cover {
+    .guide-cover {
         width: 180px;
         flex-shrink: 0;
         border-radius: 3px;
@@ -372,7 +372,7 @@
         border: 1px solid var(--border-strong);
     }
 
-    .booklet-cover img {
+    .guide-cover img {
         display: block;
         width: 100%;
         height: auto;
@@ -470,11 +470,11 @@
 
         main { padding: 88px 24px 60px; }
 
-        .booklet-hero {
+        .guide-hero {
             grid-template-columns: 1fr;
         }
 
-        .booklet-cover {
+        .guide-cover {
             order: 2;
             width: 160px;
         }
@@ -494,7 +494,7 @@
         nav { padding: 0 16px; }
         main { padding: 76px 16px 48px; }
 
-        .booklet-cover {
+        .guide-cover {
             width: 140px;
         }
 
@@ -523,35 +523,35 @@
     </div>
 
     <!-- Eyebrow -->
-    <div class="section-label">The Booklet</div>
+    <div class="section-label">The Guide</div>
 
     <!-- Hero block: two columns on desktop -->
-    <div class="booklet-hero">
+    <div class="guide-hero">
 
         <!-- Left: headline + CTA -->
         <div>
-            <div class="booklet-headline">
+            <div class="guide-headline">
                 vibe<br>
                 coder's<br>
                 guide<span class="dot">.</span>
             </div>
 
-            <div class="booklet-subhead">
+            <div class="guide-subhead">
                 to agentic engineering — with AI agents.
             </div>
 
-            <p class="booklet-desc">
+            <p class="guide-desc">
                 33 pages. Three authors. Two years of shipping production code with Claude Code, Cursor, and Codex distilled into ten practices we wish someone had handed us in 2024.
             </p>
 
-            <div class="booklet-cta">
+            <div class="guide-cta">
                 <a href="/public/vibe-coders-guide.pdf" target="_blank" rel="noopener" class="btn-primary">Read it →</a>
                 <span class="trust-line">PDF · 33 pages · no signup</span>
             </div>
         </div>
 
         <!-- Right: cover thumbnail -->
-        <div class="booklet-cover">
+        <div class="guide-cover">
             <img src="/public/vibecoders-guide-cover.png" alt="Vibe Coder's Guide cover" width="360" height="511">
         </div>
 
@@ -589,7 +589,7 @@
     <div class="section-label">Updates</div>
 
     <p class="updates-desc">
-        Future workshop dates and new editions of the booklet, when they ship.
+        Future workshop dates and new editions of the guide, when they ship.
     </p>
 
     <form id="updates-form" class="updates-form" method="POST">
