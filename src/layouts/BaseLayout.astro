@@ -15,6 +15,9 @@ interface Props {
     twitterImage?: string;
     noindex?: boolean;
     showCta?: boolean;
+    ctaUrl?: string;
+    ctaLabel?: string;
+    footerLine?: string;
     includeManifest?: boolean;
 }
 
@@ -30,6 +33,9 @@ const {
     twitterImage,
     noindex = false,
     showCta = true,
+    ctaUrl,
+    ctaLabel,
+    footerLine,
     includeManifest = false,
 } = Astro.props;
 
@@ -131,8 +137,8 @@ const fullOgImage = ogImage
         <slot name="head" />
     </head>
     <body>
-        <Header showCta={showCta} />
+        <Header showCta={showCta} ctaUrl={ctaUrl} ctaLabel={ctaLabel} />
         <slot />
-        <Footer />
+        <Footer eventLine={footerLine} />
     </body>
 </html>

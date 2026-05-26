@@ -1,5 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getNextEvent } from "../../data/eventHelpers";
+
+const nextEvent = getNextEvent();
+const workshopNote = nextEvent
+    ? `Working through this hands-on — ${nextEvent.dateDisplay}, ${nextEvent.venue}`
+    : "Working through this hands-on — next date TBA";
 ---
 
 <BaseLayout
@@ -132,7 +138,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
         <div class="workshop-link-row">
             <span class="workshop-note"
-                >Working through this hands-on — May 13, WERK1 Munich</span
+                >{workshopNote}</span
             >
             <a href="/" class="workshop-link">Workshop details →</a>
         </div>

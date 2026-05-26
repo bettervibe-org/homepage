@@ -1,18 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getNextEvent, getPastEvents } from "../data/eventHelpers";
+
+const nextEvent = getNextEvent();
+const pastEvents = getPastEvents();
+const hasUpcoming = nextEvent !== null;
+
+const dateStr = hasUpcoming ? nextEvent.dateDisplay : "Dates TBA";
+const locationStr = hasUpcoming ? nextEvent.venue : "Munich";
+const metaDesc = `The agentic engineering workshop. Go beyond vibe coding — learn to direct AI agents for production-ready code. ${dateStr} · ${locationStr}.`;
+const metaDescShort = `The agentic engineering workshop. Go beyond vibe coding. ${dateStr} · ${locationStr}.`;
 ---
 
 <BaseLayout
     title="bettervibe — Agentic Engineering Workshop · Munich"
-    description="The agentic engineering workshop. Go beyond vibe coding — learn to direct AI agents for production-ready code. May 13, 2026 · WERK1, Munich."
+    description={metaDesc}
     canonical="https://bettervibe.org"
     ogTitle="bettervibe — Agentic Engineering Workshop"
-    ogDescription="The agentic engineering workshop. Go beyond vibe coding — learn to direct AI agents for production-ready code. May 13, 2026 · WERK1, Munich."
+    ogDescription={metaDesc}
     ogImage="https://bettervibe.org/public/og-image.png"
     twitterTitle="bettervibe — Agentic Engineering Workshop"
-    twitterDescription="The agentic engineering workshop. Go beyond vibe coding. May 13, 2026 · WERK1, Munich."
+    twitterDescription={metaDescShort}
     twitterImage="https://bettervibe.org/public/twitter-card.png"
     includeManifest={true}
+    ctaUrl={hasUpcoming ? nextEvent.lumaUrl : "#updates"}
+    ctaLabel={hasUpcoming ? "Register →" : "Join waitlist →"}
+    footerLine={hasUpcoming ? `${nextEvent.dateDisplay} · ${nextEvent.city}` : undefined}
 >
     <section id="hero">
         <div class="hero-glow"></div>
@@ -40,27 +53,38 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </p>
 
             <div class="hero-actions">
-                <a href="https://luma.com/lj9niymo" class="btn-primary"
-                    >Register →</a
-                >
+                {hasUpcoming ? (
+                    <a href={nextEvent.lumaUrl} class="btn-primary">Register →</a>
+                ) : (
+                    <a href="#updates" class="btn-primary">Join the waitlist →</a>
+                )}
                 <a href="#curriculum" class="btn-ghost">See the curriculum</a>
                 <a href="/guide/" class="btn-ghost">Download the guide →</a>
             </div>
 
-            <div class="hero-meta">
-                <div class="hero-meta-item">
-                    <div class="label">Date</div>
-                    <div class="value">May 13, 2026</div>
+            {hasUpcoming ? (
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <div class="label">Date</div>
+                        <div class="value">{nextEvent.dateDisplay}</div>
+                    </div>
+                    <div class="hero-meta-item">
+                        <div class="label">Time</div>
+                        <div class="value">{nextEvent.time}</div>
+                    </div>
+                    <div class="hero-meta-item">
+                        <div class="label">Location</div>
+                        <div class="value">{nextEvent.venue}</div>
+                    </div>
                 </div>
-                <div class="hero-meta-item">
-                    <div class="label">Time</div>
-                    <div class="value">1:00 – 6:00 PM</div>
+            ) : (
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <div class="label">Next event</div>
+                        <div class="value">Date TBA — sign up for updates</div>
+                    </div>
                 </div>
-                <div class="hero-meta-item">
-                    <div class="label">Location</div>
-                    <div class="value">WERK1, Munich</div>
-                </div>
-            </div>
+            )}
         </div>
     </section>
 
@@ -420,90 +444,80 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <section id="pricing">
         <div class="max-w">
             <div class="section-label">07 — Pricing</div>
-            <h2 class="section-title">Reserve your spot.</h2>
+            {hasUpcoming ? (
+                <>
+                    <h2 class="section-title">Reserve your spot.</h2>
 
-            <div class="pricing-layout">
-                <div class="event-details">
-                    <div class="event-terminal">
-                        <span class="path">~/events/may-2026</span> $ ls -la
-                    </div>
-                    <div class="event-row">
-                        <span class="key">Date</span>
-                        <span class="val"
-                            ><span class="amber">May 13, 2026</span> —
-                            Wednesday</span
-                        >
-                    </div>
-                    <div class="event-row">
-                        <span class="key">Time</span>
-                        <span class="val">1:00 PM – 6:00 PM CEST</span>
-                    </div>
-                    <div class="event-row">
-                        <span class="key">Venue</span>
-                        <span class="val">WERK1, Munich</span>
-                    </div>
-                    <div class="event-row">
-                        <span class="key">Format</span>
-                        <span class="val">Hands-on · Projects provided</span>
-                    </div>
-                    <div class="event-row">
-                        <span class="key">Refunds</span>
-                        <span class="val">Up to 7 days before the event</span>
-                    </div>
-                    <div class="event-row">
-                        <span class="key">API keys</span>
-                        <span class="val"
-                            >Provided — no extra cost to attend</span
-                        >
-                    </div>
-                </div>
+                    <div class="pricing-layout">
+                        <div class="event-details">
+                            <div class="event-terminal">
+                                <span class="path">~/events/{nextEvent.slug}</span> $ ls -la
+                            </div>
+                            <div class="event-row">
+                                <span class="key">Date</span>
+                                <span class="val">
+                                    <span class="amber">{nextEvent.dateDisplay}</span> — {nextEvent.dayOfWeek}
+                                </span>
+                            </div>
+                            <div class="event-row">
+                                <span class="key">Time</span>
+                                <span class="val">{nextEvent.time}</span>
+                            </div>
+                            <div class="event-row">
+                                <span class="key">Venue</span>
+                                <span class="val">{nextEvent.venue}</span>
+                            </div>
+                            <div class="event-row">
+                                <span class="key">Format</span>
+                                <span class="val">Hands-on · Projects provided</span>
+                            </div>
+                            <div class="event-row">
+                                <span class="key">Refunds</span>
+                                <span class="val">Up to 7 days before the event</span>
+                            </div>
+                            <div class="event-row">
+                                <span class="key">API keys</span>
+                                <span class="val">Provided — no extra cost to attend</span>
+                            </div>
+                        </div>
 
-                <div>
-                    <div class="pricing-tiers">
-                        <div class="tier-card featured">
-                            <div class="tier-left">
-                                <h3>Bootstrap / Startup</h3>
-                                <p>Solopreneurs and early-stage founders</p>
+                        <div>
+                            <div class="pricing-tiers">
+                                {nextEvent.pricing.map((tier) => (
+                                    <div class:list={["tier-card", { featured: tier.featured }]}>
+                                        <div class="tier-left">
+                                            <h3>{tier.name}</h3>
+                                            <p>{tier.description}</p>
+                                        </div>
+                                        <div class="tier-price">
+                                            <div class="amount">
+                                                <span class="currency">€</span>{tier.price}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div class="tier-price">
-                                <div class="amount">
-                                    <span class="currency">€</span>75
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tier-card">
-                            <div class="tier-left">
-                                <h3>Early Bird</h3>
-                                <p>Individual developers</p>
-                            </div>
-                            <div class="tier-price">
-                                <div class="amount">
-                                    <span class="currency">€</span>125
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tier-card">
-                            <div class="tier-left">
-                                <h3>Regular</h3>
-                                <p>Standard ticket</p>
-                            </div>
-                            <div class="tier-price">
-                                <div class="amount">
-                                    <span class="currency">€</span>250
-                                </div>
+                            <div class="pricing-cta">
+                                <a
+                                    href={nextEvent.lumaUrl}
+                                    class="btn-primary"
+                                    style="width: 100%; justify-content: center"
+                                >Register on Luma →</a>
                             </div>
                         </div>
                     </div>
-                    <div class="pricing-cta">
-                        <a
-                            href="https://luma.com/lj9niymo"
-                            class="btn-primary"
-                            style="width: 100%; justify-content: center"
-                            >Register on Luma →</a
-                        >
+                </>
+            ) : (
+                <>
+                    <h2 class="section-title">Next dates coming soon.</h2>
+                    <p class="section-desc">
+                        Sign up below to get notified when tickets go on sale.
+                    </p>
+                    <div style="margin-top: 32px;">
+                        <a href="#updates" class="btn-primary">Get notified →</a>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
         </div>
     </section>
 
@@ -625,42 +639,54 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 that holds up.
             </p>
             <div class="sponsor-grid">
-                <a
-                    href="https://fluensy.app/"
-                    class="sponsor-link"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Fluensy"
-                >
-                    <img src="/public/fluensy-logotext.svg" alt="Fluensy" />
-                </a>
-                <a
-                    href="https://lithus.eu/"
-                    class="sponsor-link"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Lithus"
-                >
-                    <img src="/public/lithus-logo.svg" alt="Lithus" />
-                </a>
-                <a
-                    href="https://usemarbles.com/"
-                    class="sponsor-link"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Marbles"
-                >
-                    <img src="/public/marbles-logo.svg" alt="Marbles" />
-                </a>
+                {(nextEvent?.sponsors ?? pastEvents[0]?.sponsors ?? []).map((s) => (
+                    <a
+                        href={s.url}
+                        class="sponsor-link"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label={s.name}
+                    >
+                        <img src={s.logo} alt={s.name} />
+                    </a>
+                ))}
             </div>
         </div>
     </section>
+
+    {pastEvents.length > 0 && (
+        <section id="past-events">
+            <div class="max-w">
+                <div class="section-label">Past workshops</div>
+                <h2 class="section-title">Previous editions.</h2>
+                <div class="past-grid">
+                    {pastEvents.map((event) => (
+                        <div class="past-card">
+                            <div class="past-terminal">
+                                <span class="path">~/events/{event.slug}</span> $ cat summary.md
+                            </div>
+                            <h3>{event.dateDisplay} — {event.city}</h3>
+                            <div class="past-meta">
+                                <span>{event.venue}</span>
+                                {event.attendeeCount && <span>· {event.attendeeCount} attendees</span>}
+                            </div>
+                            {event.recap && (
+                                <a href={event.recap} class="btn-ghost" style="margin-top: 16px; font-size: 11px;">
+                                    See recap →
+                                </a>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )}
 
     <section id="final-cta">
         <div class="max-w" style="position: relative">
             <div class="cta-terminal">
                 <span class="path">~/workshop</span>&nbsp;$&nbsp;<span
-                    >register --now</span
+                    >{hasUpcoming ? "register --now" : "notify --me"}</span
                 >
             </div>
             <h2 class="cta-title">
@@ -674,18 +700,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             <div
                 style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;"
             >
-                <a href="https://luma.com/lj9niymo" class="btn-primary"
-                    >Register →</a
-                >
+                {hasUpcoming ? (
+                    <a href={nextEvent.lumaUrl} class="btn-primary">Register →</a>
+                ) : (
+                    <a href="#updates" class="btn-primary">Join the waitlist →</a>
+                )}
                 <a href="mailto:dominik.grusemann@gmail.com" class="btn-ghost"
                     >Any questions? Write us</a
                 >
             </div>
-            <p
-                style="font-size: 11px; color: var(--text-muted); margin-top: 24px;"
-            >
-                May 13, 2026 · WERK1 Munich · 1–6 PM
-            </p>
+            {hasUpcoming && (
+                <p
+                    style="font-size: 11px; color: var(--text-muted); margin-top: 24px;"
+                >
+                    {nextEvent.dateDisplay} · {nextEvent.venue} · {nextEvent.time.replace(" CEST", "")}
+                </p>
+            )}
         </div>
     </section>
 </BaseLayout>
@@ -1472,6 +1502,51 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         color: var(--text-secondary);
         font-weight: 300;
         line-height: 1.8;
+    }
+
+    /* PAST EVENTS */
+    #past-events {
+        background: var(--bg-primary);
+    }
+    .past-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+        margin-top: 48px;
+    }
+    .past-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px 28px;
+        opacity: 0.75;
+        transition:
+            opacity 0.2s var(--ease),
+            border-color 0.2s var(--ease);
+    }
+    .past-card:hover {
+        opacity: 1;
+        border-color: var(--border-strong);
+    }
+    .past-terminal {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        margin-bottom: 16px;
+    }
+    .past-terminal .path {
+        color: var(--green);
+    }
+    .past-card h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+    }
+    .past-meta {
+        display: flex;
+        gap: 8px;
+        font-size: 11px;
+        color: var(--text-muted);
     }
 
     /* FINAL CTA */

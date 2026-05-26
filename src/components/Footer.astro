@@ -1,9 +1,13 @@
 ---
+interface Props {
+    eventLine?: string;
+}
+const { eventLine } = Astro.props;
 ---
 
 <footer>
     <div class="footer-left">
-        bettervibe<span class="dot">.</span>org · May 2026 · Munich
+        bettervibe<span class="dot">.</span>org{eventLine ? ` · ${eventLine}` : ""}
     </div>
     <div class="footer-legal">
         <a href="mailto:dominik.grusemann@gmail.com">Contact</a>

@@ -1,8 +1,10 @@
 ---
 interface Props {
     showCta?: boolean;
+    ctaUrl?: string;
+    ctaLabel?: string;
 }
-const { showCta = true } = Astro.props;
+const { showCta = true, ctaUrl = "#updates", ctaLabel = "Join waitlist →" } = Astro.props;
 const isHome = Astro.url.pathname === "/";
 const linkPrefix = isHome ? "" : "/";
 ---
@@ -20,8 +22,8 @@ const linkPrefix = isHome ? "" : "/";
         {
             showCta && (
                 <li>
-                    <a href="https://luma.com/lj9niymo" class="nav-cta">
-                        Register →
+                    <a href={ctaUrl} class="nav-cta">
+                        {ctaLabel}
                     </a>
                 </li>
             )
