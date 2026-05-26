@@ -1,3 +1,3 @@
 #  Homepage for bettervibe.org
 
-- *Tech Stack:* HTML
+- *Tech Stack:* Astro (static output)
