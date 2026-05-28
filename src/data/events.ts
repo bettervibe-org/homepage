@@ -21,7 +21,7 @@ export interface WorkshopEvent {
   venue: string;
   city: string;
   lumaUrl: string;
-  pricing: PricingTier[];
+  pricing?: PricingTier[];
   sponsors: Sponsor[];
   status?: "sold-out";
   attendeeCount?: number;
@@ -34,10 +34,10 @@ const sponsors: Sponsor[] = [
   { name: "Marbles", url: "https://usemarbles.com/", logo: "/public/marbles-logo.svg" },
 ];
 
-const pricing: PricingTier[] = [
-  { name: "Bootstrap / Startup", description: "Solopreneurs and early-stage founders", price: 75, featured: true },
-  { name: "Early Bird", description: "Individual developers", price: 125 },
-  { name: "Regular", description: "Standard ticket", price: 250 },
+const upcomingPricing: PricingTier[] = [
+  { name: "Early Bird", description: "Individual developers — limited seats", price: 195, featured: true },
+  { name: "Regular", description: "Standard ticket", price: 350 },
+  { name: "Team (3+)", description: "Per person, for groups of 3 or more", price: 295 },
 ];
 
 export const events: WorkshopEvent[] = [
@@ -49,8 +49,8 @@ export const events: WorkshopEvent[] = [
     time: "1:00 PM – 6:00 PM CEST",
     venue: "WERK1, Munich",
     city: "Munich",
-    lumaUrl: "https://luma.com/TODO",
-    pricing,
+    lumaUrl: "https://luma.com/fc92s7r4",
+    pricing: upcomingPricing,
     sponsors,
   },
   {
@@ -62,7 +62,6 @@ export const events: WorkshopEvent[] = [
     venue: "WERK1, Munich",
     city: "Munich",
     lumaUrl: "https://luma.com/lj9niymo",
-    pricing,
     sponsors,
     attendeeCount: 15,
   },
