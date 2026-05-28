@@ -46,7 +46,7 @@ export const events: WorkshopEvent[] = [
     date: "2026-06-26",
     dateDisplay: "June 26, 2026",
     dayOfWeek: "Friday",
-    time: "1:00 PM – 6:00 PM CEST",
+    time: "12:00 PM – 6:00 PM CEST",
     venue: "WERK1, Munich",
     city: "Munich",
     lumaUrl: "https://luma.com/fc92s7r4",
